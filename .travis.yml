@@ -1,0 +1,22 @@
+dist: trusty
+os: linux
+language: java
+jdk:
+  - oraclejdk8
+  - oraclejdk11
+  - oraclejdk13
+  - openjdk8
+  - openjdk11
+  - openjdk13
+env:
+  - NODE_VERSION="11"
+before_install:
+  - nvm --version
+  - nvm install $NODE_VERSION
+before_script:
+  - npm --version
+  - node --version
+  - npm install
+script:
+  - npm run lint
+  - npm test
