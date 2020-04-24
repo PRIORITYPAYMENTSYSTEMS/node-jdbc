@@ -6,18 +6,27 @@
   "dependencies": {
     "java": "0.12.1",
     "lodash": "~4.17.15",
-    "uuid": "^3.4.0",
-    "winston": "^3.2.1"
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
+    "proxyquire": "^2.1.3",
     "jshint": "~2.11.0",
     "lolex": "^5.1.2",
-    "nodeunit": "~0.11.3"
+    "cross-env": "^7.0.2",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "chai-generator": "^2.1.0",
+    "mocha": "^7.1.1",
+    "nock": "^12.0.3",
+    "nyc": "^15.0.0",
+    "sinon": "^9.0.1",
+    "sinon-chai": "^3.5.0",
+    "supertest": "^4.0.2",
+    "supertest-as-promised": "^4.0.2"
   },
   "scripts": {
-    "pretest": "bash bin/startdbs",
-    "test": "nodeunit test",
-    "posttest": "bash bin/stopdbs",
+    "cover": "cross-env NODE_ENV=test nyc --reporter=text-summary --reporter=html mocha --reporter spec",
+    "test": "cross-env NODE_ENV=test nyc --reporter=text-summary --reporter=html mocha --reporter spec",
     "lint": "jshint lib/**.js test/**.js"
   },
   "repository": {
@@ -38,5 +47,10 @@
   },
   "author": "Jason Ozias <jason.g.ozias@gmail.com>",
   "license": "MIT",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "mocha": {
+    "reporter": "spec",
+    "recursive": true,
+    "require": "test/setup.js"
+  }
 }
