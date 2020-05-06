@@ -73,13 +73,14 @@ describe('Driver Manager', function() {
         await assert.isRejected(dm.setLoginTimeout(), 'Invalid seconds - must be an integer');
     });
     it('registerDriver', async function() {
-        await assert.isNotNull(await dm.registerDriver('fake-driver'));
-        await assert.isFulfilled(dm.registerDriver('fake-driver'));
+        function nodeJava_FakeDriverClass() {}
+        await assert.isNotNull(await dm.registerDriver(new nodeJava_FakeDriverClass()));
+        await assert.isFulfilled(dm.registerDriver(new nodeJava_FakeDriverClass()));
     });
     it('registerDriver should fail if driver specified is not a string', async function() {
-        await assert.isRejected(dm.registerDriver(1234), 'Invalid driver - must be an string with Java class name');
+        await assert.isRejected(dm.registerDriver(1234), 'Invalid parameter - must be an instance of a JDBC class.');
     });
     it('registerDriver should fail if driver is not specified', async function() {
-        await assert.isRejected(dm.registerDriver(), 'Invalid driver - must be an string with Java class name');
+        await assert.isRejected(dm.registerDriver(), 'Invalid parameter - must be an instance of a JDBC class.');
     });
 });
